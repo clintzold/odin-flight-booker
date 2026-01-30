@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_174640) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_174905) do
   create_table "airports", force: :cascade do |t|
     t.string "city_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "arrivals", force: :cascade do |t|
+    t.integer "airport_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "flight_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_arrivals_on_airport_id"
+    t.index ["flight_id"], name: "index_arrivals_on_flight_id"
+  end
+
+  create_table "departures", force: :cascade do |t|
+    t.integer "airport_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "flight_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_departures_on_airport_id"
+    t.index ["flight_id"], name: "index_departures_on_flight_id"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -25,4 +43,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_174640) do
     t.string "flight_number"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "arrivals", "airports"
+  add_foreign_key "arrivals", "flights"
+  add_foreign_key "departures", "airports"
+  add_foreign_key "departures", "flights"
 end
