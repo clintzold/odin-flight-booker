@@ -11,13 +11,34 @@
         <p><%= @booking.flight.arrival_airport.airport_code %></p>
       </div>
       <div class="confirmationDetailsContainer">
+        <p><b>Departure Date:</b></p>
+        <p><%= @booking.flight.departure_date.strftime("%B %d, %Y") %></p>
+      </div>
+      <div class="confirmationDetailsContainer">
         <p><b>Departure Time:</b></p>
-        <p><%= @booking.flight.departure_time.to_fs(:short) %></p>
+        <p><%= @booking.flight.departure_time.strftime("%H:%M") %></p>
       </div>
       <div class="confirmationDetailsContainer">
         <p><b>Number of Tickets:</b></p>
         <p><%= @booking.num_tickets %></p>
       </div>
+      <h4>Passengers</h4>
+      <table class="flightsTable">
+        <thead>
+          <tr>
+            <th class="flightsTableColumn">Name</th>
+            <th class="flightsTableColumn">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @booking.passengers.each do |passenger| %>
+            <tr class="passengerRow">
+              <td><%= passenger.name %></td>
+              <td><%= passenger.email%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
