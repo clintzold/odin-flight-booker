@@ -92,6 +92,12 @@ body {
   flex-direction: column;
 }
 
+.confirmationDetailsContainer {
+  display: flex;
+  justify-content: space-between;
+  width:350px;
+}
+
 .flightsTable {
   width:500px;
   text-align: center;

@@ -1,0 +1,23 @@
+<section>
+  <div class="searchFormContainer">
+    <h3 class="formTitle">Your getaway is booked!</h3>
+    <div class="card">
+      <div class="confirmationDetailsContainer">
+        <p><b>Departure Airport:</b></p>
+        <p><%= @booking.flight.departure_airport.airport_code %></p>
+      </div>
+      <div class="confirmationDetailsContainer">
+        <p><b>Arrival Airport:</b></p>
+        <p><%= @booking.flight.arrival_airport.airport_code %></p>
+      </div>
+      <div class="confirmationDetailsContainer">
+        <p><b>Departure Time:</b></p>
+        <p><%= @booking.flight.departure_time.to_fs(:short) %></p>
+      </div>
+      <div class="confirmationDetailsContainer">
+        <p><b>Number of Tickets:</b></p>
+        <p><%= @booking.num_tickets %></p>
+      </div>
+    </div>
+  </div>
+</section>

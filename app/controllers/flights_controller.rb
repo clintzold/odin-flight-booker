@@ -4,7 +4,7 @@ before_action :flight_params, only: [ :index ]
 
     unless flight_params.blank?
       search_params = {
-        departure_date: params[:departure_date],
+        departure_date: flight_params[:departure_date],
         departure_airport: flight_params[:departure_airport],
         arrival_airport: flight_params[:arrival_airport]
       }
