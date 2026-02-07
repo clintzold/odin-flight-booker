@@ -1,0 +1,30 @@
+<div class="searchFormContainer">
+  <h3 class="formTitle">Choose <i>your</i> getaway...</h3>
+  <% airport_codes = Airport.all.pluck(:airport_code, :id) %>
+  <% available_dates = Flight.all.pluck(:departure_date).uniq %>
+  <%= form_with url: flights_path, method: :get do  |form| %>
+    <div class="card">
+      <div class="formContainer">
+        <div class="formField">
+          <%= form.label :departure_airport, "Departure Airport" %>
+          <%= form.select :departure_airport, options_for_select(airport_codes), name: "search[departure_airport]" %>
+        </div>
+        <div class="formField">
+          <%= form.label :arrival_airport, "Arrival Airport" %>
+          <%= form.select :arrival_airport, options_for_select(airport_codes), name: "search[arrival_airport]" %>
+        </div>
+      </div>
+      <div class="formContainer">
+        <div class="formField">
+          <%= form.label :departure_date, "Departure Date" %>
+          <%= form.select :departure_date, options_for_select(available_dates), name: "search[departure_date]" %>
+        </div>
+        <div class="formField">
+          <%= form.label :num_tickets, "Passengers" %>
+          <%= form.select :num_tickets, options_for_select(1..4), name: "passengers[num_tickets]" %>
+        </div>
+      </div>
+      <%= form.submit "Search For Flights", class: "btn-wide bg-bright" %>
+    </div>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_001111) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_01_071621) do
   create_table "airports", force: :cascade do |t|
     t.string "airport_code"
     t.datetime "created_at", null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_001111) do
     t.index ["flight_id"], name: "index_arrivals_on_flight_id"
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "flight_id", null: false
+    t.integer "num_tickets", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flight_id"], name: "index_bookings_on_flight_id"
+  end
+
   create_table "departures", force: :cascade do |t|
     t.integer "airport_id", null: false
     t.datetime "created_at", null: false
@@ -40,18 +48,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_001111) do
     t.string "airline"
     t.integer "arrival_airport_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "departing"
     t.integer "departure_airport_id", null: false
+    t.date "departure_date"
+    t.time "departure_time"
     t.decimal "flight_duration"
     t.datetime "updated_at", null: false
     t.index ["arrival_airport_id"], name: "index_flights_on_arrival_airport_id"
     t.index ["departure_airport_id"], name: "index_flights_on_departure_airport_id"
   end
 
+  create_table "passengers", force: :cascade do |t|
+    t.integer "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_passengers_on_booking_id"
+  end
+
   add_foreign_key "arrivals", "airports"
   add_foreign_key "arrivals", "flights"
+  add_foreign_key "bookings", "flights"
   add_foreign_key "departures", "airports"
   add_foreign_key "departures", "flights"
   add_foreign_key "flights", "airports", column: "arrival_airport_id"
   add_foreign_key "flights", "airports", column: "departure_airport_id"
+  add_foreign_key "passengers", "bookings"
 end

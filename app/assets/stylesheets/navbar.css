@@ -1,0 +1,135 @@
+/* COLORS */
+:root {
+  --primary-color: #011f4b;
+  --secondary-color: #005b96;
+  --alt-color-one: #6497b1;
+  --bright-color: #4d9f24;
+  --light-color: #ddeaf2;
+  --link-text-color: white;
+}
+
+body {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navbar {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navContainer {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  padding: 0px 50px;
+  width: 800px;
+}
+
+.navBrand {
+  display:flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--link-text-color);
+}
+
+.navTitle {
+  padding: 0;
+  margin: 0;
+}
+
+.navLinks {
+  display:flex;
+  align-items: center;
+  gap: 40px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.searchFormContainer {
+  background-color: var(--secondary-color);
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formContainer {
+  margin: 0px 0px 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.formTitle {
+  color: var(--link-text-color);
+  text-align: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px 10px 10px 10px;
+}
+
+.searchFormContainer .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultsFormContainer {
+  background-color: var(--secondary-color);
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flightsTable {
+  width:500px;
+  text-align: center;
+}
+
+.flightsTableColumn {
+  width: 33%;
+}
+
+.bg-bright {
+  background-color: var(--secondary-color);
+}
+
+.btn-wide {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 20px;
+  color: var(--link-text-color);
+}
+
+a {
+  color: var(--link-text-color);
+  text-decoration: none;
+}
+
+section {
+  padding-top: 100px;
+}
+
+select {
+  padding: 3px;
+  border-radius: 10px;
+}
+
+tr {
+  height: 30px;
+}

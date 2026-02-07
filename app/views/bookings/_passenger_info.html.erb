@@ -1,0 +1,33 @@
+<div class="searchFormContainer">
+  <h3 class="formTitle">New Booking</h3>
+
+  <%= form_with model: booking, method: :post do |form| %>
+    <%= form.hidden_field :flight_id, value: params[:flight_id].to_s %>
+    <%= form.hidden_field :num_tickets, value: params[:num_tickets].to_s %>
+
+    <div class="card">
+      <% if booking.errors.any? %>
+        <% booking.errors.each do |e| %>
+          <div class="errorMessage">
+            <%= e.full_message %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= form.fields_for :passengers do |pa| %>
+        <div class="formContainer">
+          <div class="formField">
+            <%= pa.label :name, "Passenger Name" %>
+            <%= pa.text_field :name, required: true %>
+          </div>
+          <div class="formField">
+            <%= pa.label :email, "Email" %>
+            <%= pa.text_field :email, required: true %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.submit "Reserve Tickets" %>
+    </div>
+  <% end %>
+</div>

@@ -2,46 +2,55 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
-# Example:
+# Seeds database with airports and flights with random departures, arrivals, dates and durations
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+north_american_airports = [
+  "YYZ",
+  "YVR",
+  "YUL",
+  "YYC",
+  "YEG",
+  "YWG",
+  "YOW",
+  "YHZ",
+  "YQB",
+  "YXE",
+  "YQR",
+  "YYJ",
+  "YLW",
+  "YXT",
+  "YYT"
+]
 
-Airport.create([
-  { airport_code: "CHI" },
-  {airport_code: "NYC"},
-  {airport_code: "DET"},
-  {airport_code: "TOR"},
-  {airport_code: "CGY"},
-  {airport_code: "EDM"},
-  {airport_code: "VAN"},
-  {airport_code: "WSH"},
-  {airport_code: "COL"},
-  {airport_code: "LAX"}
-])
+# Create airports
+north_american_airports.each do |code|
+  Airport.create(airport_code: code)
+end
 
 # Create flights
 airports = Airport.all
 num_of_airports = airports.length
 
 airports.each do |airport|
-  100.times do
-    # Find airport to exclude
-    id = airport.id
+  # Find airport to exclude
+  id = airport.id
+  1000.times do |count|
+    date = (Date.today..1.month.from_now).to_a.sample
     # Create array of airport ID's excluding current airport
     airport_selection = ((id+1)-id...id).to_a + ((id+1)..num_of_airports).to_a
+    arrival_id = airport_selection.sample
     # Randomnize duration of flight
     duration = rand(1.0..10.0).round(1)
-    # Randomnize departure date
-    departure_date = DateTime.now + rand(1..24).hours + rand(1..12).month
+    # Randomnize departure time
+    departure_time = rand(Time.current..24.hours.from_now)
     # Select arrival airport at random
-    arrival_id = airport_selection.sample
 
     airport.departing_flights.create(
       arrival_airport_id: arrival_id,
-      departing: departure_date,
+      departure_date: date,
+      departure_time: departure_time,
       flight_duration: duration
     )
+    puts "#{count} Created flight from airport##{id} to airport##{arrival_id}"
   end
 end

@@ -1,0 +1,9 @@
+<section id="search">
+  <%= render "search_form" %>
+</section>
+
+<section id="main">
+    <% if @flights %>
+      <%= render "results_form", flights: @flights %>
+    <% end %>
+</section>

@@ -1,0 +1,29 @@
+<div class="searchFormContainer">
+  <h3 class="formTitle">Pick a flight.</h3>
+  <%= form_with url: new_booking_path, method: :get do |form| %>
+    <%= form.hidden_field :num_tickets, value: params[:num_tickets] %>
+    <div class="card">
+      <table class="flightsTable">
+        <thead>
+          <tr>
+            <th class="flightsTableColumn">Departs</th>
+            <th class="flightsTableColumn">Duration</th>
+            <th class="flightsTableColumn">Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% flights.each do |flight| %>
+            <tr>
+              <td><%= flight.departure_time.strftime("%H:%M") %></td>
+              <td><%= flight.flight_duration%> hours</td>
+              <td>
+                <%= form.radio_button :flight_id, flight.id,  required: true %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= form.submit "Book Flight!", class: "btn-wide bg-bright" %>
+    </div>
+  <% end %>
+</div>
