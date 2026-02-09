@@ -1,14 +1,15 @@
 class FlightsController < ApplicationController
 before_action :flight_params, only: [ :index ]
-  def index
 
+  def index
     unless flight_params.blank?
       search_params = {
         departure_date: flight_params[:departure_date],
         departure_airport: flight_params[:departure_airport],
         arrival_airport: flight_params[:arrival_airport]
       }
-      @flights = Flight.where(search_params)
+      flights_found = Flight.where(search_params)
+      @flights = flights_found unless flights_found.empty?
     end
   end
 

@@ -64,7 +64,9 @@ body {
   margin: 0px 0px 30px 0px;
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  align-items: center;
+  min-width: 400px;
+  gap: 10px;
 }
 
 .formTitle {
@@ -126,6 +128,13 @@ body {
   color: var(--link-text-color);
 }
 
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
 a {
   color: var(--link-text-color);
   text-decoration: none;

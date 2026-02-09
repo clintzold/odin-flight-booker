@@ -1,9 +1,8 @@
 <div class="searchFormContainer">
   <h3 class="formTitle">New Booking</h3>
 
-  <%= form_with model: booking, method: :post do |form| %>
+  <%= form_with model: booking, method: :post, data: { controller: "tickets" } do |form| %>
     <%= form.hidden_field :flight_id, value: params[:flight_id].to_s %>
-    <%= form.hidden_field :num_tickets, value: params[:num_tickets].to_s %>
 
     <div class="card">
       <% if booking.errors.any? %>
@@ -13,21 +12,43 @@
           </div>
         <% end %>
       <% end %>
-
-      <%= form.fields_for :passengers do |pa| %>
-        <div class="formContainer">
-          <div class="formField">
-            <%= pa.label :name, "Passenger Name" %>
-            <%= pa.text_field :name, required: true %>
+      
+      <!-- Fields for passengers -->
+      <div data-tickets-target="wrapper">
+        <%= form.fields_for :passengers do |pa| %>
+          <div class="formContainer" data-tickets-target="passengerField">
+            <div class="formField">
+              <%= pa.label :name, "Passenger Name" %>
+              <%= pa.text_field :name, required: true %>
+            </div>
+            <div class="formField">
+              <%= pa.label :email, "Email" %>
+              <%= pa.text_field :email, required: true %>
+            </div>
+            <button class="remove-button" data-action="tickets#removePassenger">Remove</button>
           </div>
-          <div class="formField">
-            <%= pa.label :email, "Email" %>
-            <%= pa.text_field :email, required: true %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
 
-      <%= form.submit "Reserve Tickets" %>
+      <!-- Template for new fields -->
+      <template data-tickets-target="newPassenger">
+        <%= form.fields_for :passengers, Passenger.new, passenger_index: 'NEW_RECORD' do |pa| %>
+          <div class="formContainer" data-tickets-target="passengerField">
+            <div class="formField">
+              <%= pa.label :name, "Passenger Name" %>
+              <%= pa.text_field :name, required: true %>
+            </div>
+            <div class="formField">
+              <%= pa.label :email, "Email" %>
+              <%= pa.text_field :email, required: true %>
+            </div>
+            <button class="remove-button" data-action="tickets#removePassenger">Remove</button>
+          </div>
+        <% end %>
+      </template>
+
+      <button class="btn-wide bg-bright" data-action="tickets#addPassenger">Add Passenger</button>
+      <%= form.submit "Reserve Tickets", class:"btn-wide bg-bright"%>
     </div>
   <% end %>
 </div>
