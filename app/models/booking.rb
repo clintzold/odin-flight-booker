@@ -11,7 +11,7 @@ class Booking < ApplicationRecord
 
   def send_booking_confirmations
     self.passengers.each do |passenger|
-      PassengerMailer.booking_confirmation.with(booking: self, passenger: passenger).deliver_later
+      PassengerMailer.with(booking: self, passenger: passenger).booking_confirmation.deliver_later
     end
   end
 end
